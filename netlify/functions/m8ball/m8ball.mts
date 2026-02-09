@@ -33,12 +33,19 @@ export default async (request: Request, context: Context) => {
   try {
     const raw = await request.text();
     const requestData = Object.fromEntries(new URLSearchParams(raw));
-    const { response_url } = requestData;
+    const { user_name, text, response_url } = requestData;
     const answer = getRandItem(answers);
 
     const responseBody = {
       // response_type: "in_channel",
       blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `${user_name} shakes the magic 8 ball and asks: ${text}`,
+          },
+        },
         {
           type: "section",
           text: {
