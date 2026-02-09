@@ -51,6 +51,13 @@ export default async (request: Request, context: Context) => {
   sendDelayedResponse({
     response_url,
     responseBody,
-    showOriginalMessage: true,
   });
+
+  return {
+    body: JSON.stringify({ response_type: "in_channel" }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    status: 200,
+  };
 };
