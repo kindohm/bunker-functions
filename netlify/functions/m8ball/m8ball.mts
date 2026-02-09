@@ -53,11 +53,8 @@ export default async (request: Request, context: Context) => {
     responseBody,
   });
 
-  return {
-    body: JSON.stringify({ response_type: "in_channel" }),
-    headers: {
-      "Content-Type": "application/json",
-    },
+  return new Response(JSON.stringify({ response_type: "in_channel" }), {
     status: 200,
-  };
+    headers: { "content-type": "application/json; charset=utf-8" },
+  });
 };
