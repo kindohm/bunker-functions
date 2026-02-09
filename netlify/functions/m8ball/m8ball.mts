@@ -37,7 +37,7 @@ export default async (request: Request, context: Context) => {
     const answer = getRandItem(answers);
 
     const responseBody = {
-      response_type: "in_channel",
+      // response_type: "in_channel",
       blocks: [
         {
           type: "section",
