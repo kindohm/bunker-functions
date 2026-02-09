@@ -1,6 +1,5 @@
 import { Context } from "@netlify/functions";
 import { getRandItem } from "../../util.js";
-import { sendDelayedResponse } from "../../delayedResponse.js";
 
 // sourced from https://en.wikipedia.org/wiki/Magic_8-ball
 export const answers: Array<string> = [
@@ -33,17 +32,16 @@ export default async (request: Request, context: Context) => {
   try {
     const raw = await request.text();
     const requestData = Object.fromEntries(new URLSearchParams(raw));
-    const { user_name, text, response_url } = requestData;
+    const { user_name, text } = requestData;
     const answer = getRandItem(answers);
 
     const responseBody = {
-      // response_type: "in_channel",
       blocks: [
         {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `${user_name} shakes the magic 8 ball and asks: ${text}`,
+            text: `${user_name} shakes the Magic 8 Ball: ${text}`,
           },
         },
         {
@@ -55,11 +53,6 @@ export default async (request: Request, context: Context) => {
         },
       ],
     };
-
-    // sendDelayedResponse({
-    //   response_url,
-    //   responseBody,
-    // });
 
     return new Response(JSON.stringify(responseBody), {
       status: 200,
