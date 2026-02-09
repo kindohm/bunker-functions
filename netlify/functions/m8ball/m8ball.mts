@@ -34,9 +34,7 @@ export default async (request: Request, context: Context) => {
     console.log("m8ball!");
 
     const raw = await request.text();
-    const data = Object.fromEntries(new URLSearchParams(raw));
-
-    console.log("what is data?", data);
+    console.log("rawwww", raw);
 
     const requestData = await request.json();
     console.log("read request.json()");
