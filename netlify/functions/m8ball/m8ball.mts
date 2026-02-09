@@ -32,6 +32,12 @@ export const answers: Array<string> = [
 export default async (request: Request, context: Context) => {
   try {
     console.log("m8ball!");
+
+    const raw = await request.text();
+    const data = Object.fromEntries(new URLSearchParams(raw));
+
+    console.log("what is data?", data);
+
     const requestData = await request.json();
     console.log("read request.json()");
     const { response_url } = requestData;
