@@ -2,11 +2,21 @@ Netlify functions for fancy Slack slash commands.
 
 # Contributing
 
+Install the Netlify CLI:
+
+```sh
+npm install netlify-cli -g
+```
+
 Functions are defined at `netlify/functions/`.
 
-Create a folder and .mts file for your function name.
+Create a folder and .mts file for your function name:
 
-Write a function that looks like this:
+```txt
+netlify/functions/foo/foo.mts
+```
+
+Write a function that looks like this in your .mts file:
 
 ```typescript
 import { Context } from "@netlify/functions";
@@ -17,6 +27,7 @@ export default async (request: Request, context: Context) => {
     const requestData = Object.fromEntries(new URLSearchParams(raw));
     const { user_name, text } = requestData; // data from Slack
 
+    // refer to Slack API for response body options
     const responseBody = {
       blocks: [
         {
