@@ -36,7 +36,7 @@ export default async (request: Request, context: Context) => {
     const raw = await request.text();
     console.log("rawwww", raw);
 
-    const requestData = await request.json();
+    const requestData = JSON.parse(raw); // await request.json();
     console.log("read request.json()");
     const { response_url } = requestData;
     console.log("response_url", response_url);
