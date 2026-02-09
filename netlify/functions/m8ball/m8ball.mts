@@ -30,10 +30,13 @@ export const answers: Array<string> = [
 ];
 
 export default async (request: Request, context: Context) => {
+  console.log("m8ball!");
   const requestData = await request.json();
   const { response_url } = requestData;
+  console.log("response_url", response_url);
 
   const answer = getRandItem(answers);
+  console.log("answer", answer);
 
   const responseBody = {
     response_type: "in_channel",
@@ -48,11 +51,13 @@ export default async (request: Request, context: Context) => {
     ],
   };
 
+  console.log("setting up delayed response");
   sendDelayedResponse({
     response_url,
     responseBody,
   });
 
+  console.log("sending final response");
   return new Response(JSON.stringify({ response_type: "in_channel" }), {
     status: 200,
     headers: { "content-type": "application/json; charset=utf-8" },
