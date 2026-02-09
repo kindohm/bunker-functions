@@ -46,6 +46,7 @@ export default async (request: Request, context: Context) => {
     const final = result === nope ? result : `:${randomEmoji}: ${result}`;
 
     const responseBody = {
+      response_type: "in_channel",
       blocks: [
         {
           type: "section",
