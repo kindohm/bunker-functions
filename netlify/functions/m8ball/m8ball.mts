@@ -30,36 +30,46 @@ export const answers: Array<string> = [
 ];
 
 export default async (request: Request, context: Context) => {
-  console.log("m8ball!");
-  const requestData = await request.json();
-  const { response_url } = requestData;
-  console.log("response_url", response_url);
+  try {
+    console.log("m8ball!");
+    const requestData = await request.json();
+    console.log("read request.json()");
+    const { response_url } = requestData;
+    console.log("response_url", response_url);
 
-  const answer = getRandItem(answers);
-  console.log("answer", answer);
+    const answer = getRandItem(answers);
+    console.log("answer", answer);
 
-  const responseBody = {
-    response_type: "in_channel",
-    blocks: [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `:magic8ball: ${answer}`,
+    const responseBody = {
+      response_type: "in_channel",
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `:magic8ball: ${answer}`,
+          },
         },
-      },
-    ],
-  };
+      ],
+    };
 
-  console.log("setting up delayed response");
-  sendDelayedResponse({
-    response_url,
-    responseBody,
-  });
+    console.log("setting up delayed response");
+    sendDelayedResponse({
+      response_url,
+      responseBody,
+    });
 
-  console.log("sending final response");
-  return new Response(JSON.stringify({ response_type: "in_channel" }), {
-    status: 200,
-    headers: { "content-type": "application/json; charset=utf-8" },
-  });
+    console.log("sending final response");
+    return new Response(JSON.stringify({ response_type: "in_channel" }), {
+      status: 200,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  } catch (err) {
+    console.error("oh no");
+
+    // @ts-expect-error its ok
+    console.error(err.message);
+
+    console.error(err);
+  }
 };
