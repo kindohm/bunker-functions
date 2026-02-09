@@ -50,3 +50,21 @@ export default async (request: Request, context: Context) => {
   }
 };
 ```
+
+You can test your function locally with:
+
+```sh
+npm run dev
+```
+
+and then post to your local server:
+
+```sh
+POST http://localhost:8888/.netlify/functions/foo
+```
+
+Post a body as form data (not JSON):
+
+```txt
+user_name=hank&text=this%20is%20what%20I%20typed
+```
